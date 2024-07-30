@@ -37,7 +37,7 @@ $recoveryLocation = (Get-AzureRmResourceGroup -ResourceGroupName $WingtipRecover
 
 # Get Wingtip web app if it exists
 $recoveryWebAppName = $config.EventsAppNameStem + $recoveryLocation + '-' + $wtpUser.Name
-$wingtipRecoveryApp = Find-AzureRmResource `
+$wingtipRecoveryApp = Get-AzureRmResource `
                         -ResourceType "Microsoft.Web/sites" `
                         -ResourceGroupNameEquals $WingtipRecoveryResourceGroup `
                         -ResourceNameEquals $recoveryWebAppName

@@ -71,11 +71,11 @@ while (($pastDeployment) -and ($pastDeployment.ProvisioningState -NotIn "Succeed
 }
 
 # Wait until catalog recovery server has been created before starting catalog database replication
-$recoveryCatalogServer = Find-AzureRmResource -ResourceGroupNameEquals $WingtipRecoveryResourceGroup -ResourceType "Microsoft.sql/servers" -ResourceNameEquals $recoveryCatalogServerName
+$recoveryCatalogServer = Get-AzureRmResource -ResourceGroupNameEquals $WingtipRecoveryResourceGroup -ResourceType "Microsoft.sql/servers" -ResourceNameEquals $recoveryCatalogServerName
 while (!$recoveryCatalogServer)
 {
   Start-Sleep $sleepInterval
-  $recoveryCatalogServer = Find-AzureRmResource -ResourceGroupNameEquals $WingtipRecoveryResourceGroup -ResourceType "Microsoft.sql/servers" -ResourceNameEquals $recoveryCatalogServerName
+  $recoveryCatalogServer = Get-AzureRmResource -ResourceGroupNameEquals $WingtipRecoveryResourceGroup -ResourceType "Microsoft.sql/servers" -ResourceNameEquals $recoveryCatalogServerName
 }
 
 $managementDatabaseCount = (Get-AzureRmSqlDatabase -ResourceGroupName $wtpUser.ResourceGroupName -ServerName $originCatalogServerName | Where-Object {$_.DatabaseName -ne 'master'}).Count

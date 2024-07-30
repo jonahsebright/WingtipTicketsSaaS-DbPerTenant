@@ -99,7 +99,7 @@ if ($DemoScenario -eq 4)
     $newTenantAlias = $config.NewTenantAliasStem + $wtpUser.Name + ".database.windows.net"
     $serverName = Get-ServerNameFromAlias $newTenantAlias
     $poolName = $config.TenantPoolNameStem + "1"
-    $resourceGroupName = (Find-AzureRmResource -ResourceNameEquals $serverName -ResourceType "Microsoft.sql/servers").ResourceGroupName
+    $resourceGroupName = (Get-AzureRmResource -ResourceNameEquals $serverName -ResourceType "Microsoft.sql/servers").ResourceGroupName
     try
     {
         New-Tenant `

@@ -125,7 +125,7 @@ function Start-AsynchronousDatabaseRecovery
 
   # Construct geo-restore parameters
   $recoveredServerName = ($TenantDatabase.ServerName) + $config.RecoveryRoleSuffix
-  $recoveredServer = Find-AzureRmResource -ResourceGroupNameEquals $WingtipRecoveryResourceGroup -ResourceNameEquals $recoveredServerName
+  $recoveredServer = Get-AzureRmResource -ResourceGroupNameEquals $WingtipRecoveryResourceGroup -ResourceNameEquals $recoveredServerName
   $databaseId = "/subscriptions/$currentSubscriptionId/resourceGroups/$($wtpUser.ResourceGroupName)/providers/Microsoft.Sql/servers/$($TenantDatabase.ServerName)/recoverabledatabases/$($TenantDatabase.DatabaseName)"
 
   if ($TenantDatabase.ServiceObjective -eq 'ElasticPool')
@@ -260,7 +260,7 @@ if ($recoveringDatabases.Count -gt 0)
   }
   
   # Get all tenant databases that have been restored into the recovery region 
-  $recoveredDatabaseInstances = Find-AzureRmResource -ResourceGroupNameEquals $WingtipRecoveryResourceGroup -ResourceType "Microsoft.sql/servers/databases" -ResourceNameContains "tenants"
+  $recoveredDatabaseInstances = Get-AzureRmResource -ResourceGroupNameEquals $WingtipRecoveryResourceGroup -ResourceType "Microsoft.sql/servers/databases" -ResourceNameContains "tenants"
 
   # Update recovery state of databases
   foreach ($database in $recoveringDatabases)
